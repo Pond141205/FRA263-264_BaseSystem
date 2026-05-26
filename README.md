@@ -1,4 +1,4 @@
-# Base System — How it works (FRA263 / FRA264)
+# [V1.2] Base System — How it works (FRA263 / FRA264) 
 
 This document describes the **Base System** application that runs on the PC: what it connects to, **how data moves**, and **what each Modbus register address means**. You use the program as provided; you do not need its internal source code to follow this guide.
 <!-- 
@@ -16,7 +16,6 @@ Before starting the installation, ensure you have the following software install
 ---
 
 ## Installation Steps
-
 Follow these steps to deploy both the Frontend and Backend services with a single command:
 
 ### 1. Prepare Your Files
@@ -103,7 +102,7 @@ If you need to stop the system or clean up the container, use these commands:
 
 | Setting   | Value   |
 |----------|---------|
-| Baud     | 19200   |
+| Baud     | 230400  |
 | Data bits| 8       |
 | Parity   | Even    |
 | Stop bits| 1       |
@@ -145,6 +144,11 @@ The UI is updated from these read values (position, speed, gripper state, etc.).
 |-------|--------|
 | Robot | Writes **22881** (“YA”) into register **0x00** when it expects a reply. |
 | Base System | Writes **18537** (“HI”) back into **0x00**. |
+
+**Update rates (timing behavior):**
+
+- **Status/UI update (STATS)**: ~**50 Hz**
+- **Heartbeat reply (HI)**: rate-limited to ~**5 Hz** (only written when YA is seen)
 
 If the Base System does not see the expected heartbeat pattern in time, the UI can show the link as **not alive**, even if the cable is plugged in.
 
